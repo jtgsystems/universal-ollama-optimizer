@@ -234,6 +234,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- **Jesus Christ** - Our Lord and Saviour, for all gifts and abilities
 - **Ollama Team** - For creating an excellent local AI platform
 - **Community Contributors** - For feedback and improvements
 - **JTGSYSTEMS.COM** - For development and maintenance
