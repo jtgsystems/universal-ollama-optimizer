@@ -161,6 +161,171 @@ suggest_popular_models() {
     echo
 }
 
+# Giant model selection menu with numbers
+show_model_selection_menu() {
+    echo -e "${GREEN}📋 Complete Model Selection Menu (September 2025)${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
+    echo
+
+    echo -e "${YELLOW}🏆 TOP-TIER MODELS (September 2025)${NC}"
+    echo -e "${CYAN} 1)${NC} llama3.3:70b-instruct    ${GREEN}[64GB RAM]${NC} - Meta's 2025 flagship, rivals GPT-4"
+    echo -e "${CYAN} 2)${NC} llama3.1:8b-instruct     ${GREEN}[8GB RAM]${NC}  - Community favorite, best balance"
+    echo -e "${CYAN} 3)${NC} llama3.1:70b-instruct    ${GREEN}[64GB RAM]${NC} - High-performance enterprise"
+    echo -e "${CYAN} 4)${NC} deepseek-r1              ${GREEN}[16GB RAM]${NC} - Advanced reasoning powerhouse"
+    echo -e "${CYAN} 5)${NC} deepseek-r1:32b          ${GREEN}[32GB RAM]${NC} - Large reasoning model"
+    echo
+
+    echo -e "${YELLOW}💻 PREMIER CODING MODELS${NC}"
+    echo -e "${CYAN} 6)${NC} deepseek-coder:33b       ${GREEN}[32GB RAM]${NC} - #1 coding model, complex tasks"
+    echo -e "${CYAN} 7)${NC} codellama:34b            ${GREEN}[32GB RAM]${NC} - Meta's specialized coding model"
+    echo -e "${CYAN} 8)${NC} qwen2.5-coder:32b        ${GREEN}[32GB RAM]${NC} - Alibaba's latest code improvements"
+    echo -e "${CYAN} 9)${NC} codellama:13b-instruct   ${GREEN}[16GB RAM]${NC} - Balanced coding performance"
+    echo -e "${CYAN}10)${NC} deepseek-coder:6.7b      ${GREEN}[8GB RAM]${NC}  - Lightweight coding assistant"
+    echo -e "${CYAN}11)${NC} codegemma:7b             ${GREEN}[8GB RAM]${NC}  - Google's coding model"
+    echo
+
+    echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS${NC}"
+    echo -e "${CYAN}12)${NC} mistral:7b-instruct      ${GREEN}[8GB RAM]${NC}  - Community favorite for beginners"
+    echo -e "${CYAN}13)${NC} phi3:mini                ${GREEN}[4GB RAM]${NC}  - Microsoft's edge-optimized"
+    echo -e "${CYAN}14)${NC} llama3.2:3b             ${GREEN}[4GB RAM]${NC}  - Compact Llama for lightweight"
+    echo -e "${CYAN}15)${NC} gemma2:9b                ${GREEN}[8GB RAM]${NC}  - Google's efficient model"
+    echo -e "${CYAN}16)${NC} qwen2.5:7b              ${GREEN}[8GB RAM]${NC}  - Alibaba's balanced model"
+    echo -e "${CYAN}17)${NC} phi3.5:3.8b             ${GREEN}[4GB RAM]${NC}  - Latest Microsoft lightweight"
+    echo -e "${CYAN}18)${NC} tinyllama:1.1b           ${GREEN}[2GB RAM]${NC}  - Ultra-lightweight"
+    echo
+
+    echo -e "${YELLOW}🎨 CREATIVE & MULTIMODAL${NC}"
+    echo -e "${CYAN}19)${NC} llava:latest             ${GREEN}[16GB RAM]${NC} - Leading vision model for images"
+    echo -e "${CYAN}20)${NC} qwen-vl                  ${GREEN}[16GB RAM]${NC} - Advanced multimodal processing"
+    echo -e "${CYAN}21)${NC} gemma2:27b               ${GREEN}[32GB RAM]${NC} - Excellent creative writing"
+    echo -e "${CYAN}22)${NC} llava:34b                ${GREEN}[32GB RAM]${NC} - Large vision language model"
+    echo -e "${CYAN}23)${NC} bakllava:latest          ${GREEN}[16GB RAM]${NC} - Alternative vision model"
+    echo -e "${CYAN}24)${NC} moondream:latest         ${GREEN}[8GB RAM]${NC}  - Lightweight vision model"
+    echo
+
+    echo -e "${YELLOW}🧠 SPECIALIZED MODELS${NC}"
+    echo -e "${CYAN}25)${NC} llama3.1:405b           ${GREEN}[256GB RAM]${NC} - Massive flagship model"
+    echo -e "${CYAN}26)${NC} mixtral:8x7b             ${GREEN}[32GB RAM]${NC} - Mixture of Experts model"
+    echo -e "${CYAN}27)${NC} mixtral:8x22b            ${GREEN}[64GB RAM]${NC} - Large MoE model"
+    echo -e "${CYAN}28)${NC} command-r:35b            ${GREEN}[32GB RAM]${NC} - Cohere's command model"
+    echo -e "${CYAN}29)${NC} wizard-vicuna:13b        ${GREEN}[16GB RAM]${NC} - Enhanced conversation model"
+    echo -e "${CYAN}30)${NC} orca-mini:13b            ${GREEN}[16GB RAM]${NC} - Microsoft's Orca variant"
+    echo
+
+    echo -e "${YELLOW}🔬 RESEARCH & ANALYSIS${NC}"
+    echo -e "${CYAN}31)${NC} llama3-gradient:8b       ${GREEN}[8GB RAM]${NC}  - Enhanced reasoning"
+    echo -e "${CYAN}32)${NC} vicuna:13b               ${GREEN}[16GB RAM]${NC} - Research assistant model"
+    echo -e "${CYAN}33)${NC} openchat:latest          ${GREEN}[8GB RAM]${NC}  - Open conversation model"
+    echo -e "${CYAN}34)${NC} starling-lm:7b           ${GREEN}[8GB RAM]${NC}  - Berkeley research model"
+    echo -e "${CYAN}35)${NC} zephyr:7b                ${GREEN}[8GB RAM]${NC}  - Hugging Face model"
+    echo
+
+    echo -e "${YELLOW}🌐 MULTILINGUAL MODELS${NC}"
+    echo -e "${CYAN}36)${NC} qwen2.5:14b             ${GREEN}[16GB RAM]${NC} - Strong multilingual support"
+    echo -e "${CYAN}37)${NC} yi:34b                   ${GREEN}[32GB RAM]${NC} - Chinese-English bilingual"
+    echo -e "${CYAN}38)${NC} aya:35b                  ${GREEN}[32GB RAM]${NC} - Multilingual instruction model"
+    echo -e "${CYAN}39)${NC} chinese-llama2:7b        ${GREEN}[8GB RAM]${NC}  - Chinese language model"
+    echo -e "${CYAN}40)${NC} baichuan2:7b             ${GREEN}[8GB RAM]${NC}  - Chinese conversation model"
+    echo
+
+    echo -e "${YELLOW}⚡ SPEED & EFFICIENCY${NC}"
+    echo -e "${CYAN}41)${NC} neural-chat:7b           ${GREEN}[8GB RAM]${NC}  - Fast conversation model"
+    echo -e "${CYAN}42)${NC} dolphin-mistral:7b       ${GREEN}[8GB RAM]${NC}  - Uncensored variant"
+    echo -e "${CYAN}43)${NC} solar:10.7b              ${GREEN}[12GB RAM]${NC} - Solar Pro model"
+    echo -e "${CYAN}44)${NC} nous-hermes2:latest      ${GREEN}[8GB RAM]${NC}  - Nous Research model"
+    echo -e "${CYAN}45)${NC} alpaca:7b                ${GREEN}[8GB RAM]${NC}  - Stanford's Alpaca"
+    echo
+
+    echo -e "${YELLOW}🎯 FINE-TUNED VARIANTS${NC}"
+    echo -e "${CYAN}46)${NC} llama3-chatqa:8b         ${GREEN}[8GB RAM]${NC}  - Q&A specialized"
+    echo -e "${CYAN}47)${NC} llama3-instruct:8b       ${GREEN}[8GB RAM]${NC}  - Instruction following"
+    echo -e "${CYAN}48)${NC} mistral-openorca:7b      ${GREEN}[8GB RAM]${NC}  - OpenOrca fine-tune"
+    echo -e "${CYAN}49)${NC} wizard-math:7b           ${GREEN}[8GB RAM]${NC}  - Mathematics specialist"
+    echo -e "${CYAN}50)${NC} medllama2:7b             ${GREEN}[8GB RAM]${NC}  - Medical domain model"
+    echo
+
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
+    echo -e "${PURPLE}💡 TIP: For beginners, try options 2, 12, or 15 (8GB RAM models)${NC}"
+    echo -e "${PURPLE}🚀 For coding, try options 6, 7, or 9 (coding specialists)${NC}"
+    echo -e "${PURPLE}🖼️ For vision tasks, try options 19, 20, or 24 (multimodal)${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
+    echo
+
+    # Array of model names corresponding to menu numbers
+    MODELS=(
+        "llama3.3:70b-instruct" "llama3.1:8b-instruct" "llama3.1:70b-instruct" "deepseek-r1" "deepseek-r1:32b"
+        "deepseek-coder:33b" "codellama:34b" "qwen2.5-coder:32b" "codellama:13b-instruct" "deepseek-coder:6.7b"
+        "codegemma:7b" "mistral:7b-instruct" "phi3:mini" "llama3.2:3b" "gemma2:9b"
+        "qwen2.5:7b" "phi3.5:3.8b" "tinyllama:1.1b" "llava:latest" "qwen-vl"
+        "gemma2:27b" "llava:34b" "bakllava:latest" "moondream:latest" "llama3.1:405b"
+        "mixtral:8x7b" "mixtral:8x22b" "command-r:35b" "wizard-vicuna:13b" "orca-mini:13b"
+        "llama3-gradient:8b" "vicuna:13b" "openchat:latest" "starling-lm:7b" "zephyr:7b"
+        "qwen2.5:14b" "yi:34b" "aya:35b" "chinese-llama2:7b" "baichuan2:7b"
+        "neural-chat:7b" "dolphin-mistral:7b" "solar:10.7b" "nous-hermes2:latest" "alpaca:7b"
+        "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
+    )
+}
+
+# Function to get model selection from user
+get_model_selection() {
+    while true; do
+        show_model_selection_menu
+
+        echo -e "${GREEN}Choose an option:${NC}"
+        echo -e "${CYAN}51)${NC} Enter custom model name"
+        echo -e "${CYAN}52)${NC} Show my local models only"
+        echo -e "${CYAN} 0)${NC} Exit"
+        echo
+
+        read -p "Enter your choice (0-52): " choice
+
+        case $choice in
+            0)
+                echo -e "${YELLOW}Goodbye!${NC}"
+                exit 0
+                ;;
+            51)
+                echo
+                read -p "Enter custom model name (e.g., llama3.2:latest): " custom_model
+                if [[ -n "$custom_model" ]]; then
+                    MODEL_NAME="$custom_model"
+                    return 0
+                else
+                    echo -e "${RED}Invalid model name${NC}"
+                    continue
+                fi
+                ;;
+            52)
+                echo
+                list_available_models
+                echo
+                read -p "Enter model name from above list: " local_model
+                if [[ -n "$local_model" ]]; then
+                    MODEL_NAME="$local_model"
+                    return 0
+                else
+                    echo -e "${RED}Invalid model name${NC}"
+                    continue
+                fi
+                ;;
+            [1-9]|[1-4][0-9]|50)
+                if [[ $choice -ge 1 && $choice -le 50 ]]; then
+                    MODEL_NAME="${MODELS[$((choice-1))]}"
+                    echo -e "${GREEN}Selected: ${CYAN}$MODEL_NAME${NC}"
+                    return 0
+                else
+                    echo -e "${RED}Invalid choice. Please select 0-52.${NC}"
+                    continue
+                fi
+                ;;
+            *)
+                echo -e "${RED}Invalid choice. Please select 0-52.${NC}"
+                continue
+                ;;
+        esac
+    done
+}
+
 # Function to validate model name
 validate_model() {
     local model_name="$1"
@@ -417,12 +582,8 @@ main() {
         check_ollama_service
     fi
 
-    echo
-    list_available_models
-    suggest_popular_models
-
-    # Get model name from user
-    read -p "Enter model name (with tag, e.g., llama3.2:latest): " MODEL_NAME
+    # Get model selection from user using comprehensive menu
+    get_model_selection
 
     if [[ -z "$MODEL_NAME" ]]; then
         echo -e "${RED}No model name provided. Exiting.${NC}"
