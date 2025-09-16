@@ -31,6 +31,407 @@ MIN_DISK_SPACE_GB=5
 SHOW_COLORS=true
 SHOW_BANNER=true
 
+# ===============================================
+# 🛡️ COMPREHENSIVE ERROR HANDLING SYSTEM
+# ===============================================
+
+# Error logging and reporting system
+ERROR_LOG="$HOME/.config/universal-ollama-optimizer/errors.log"
+DEBUG_MODE=false
+
+# Ensure log directory exists
+mkdir -p "$(dirname "$ERROR_LOG")"
+
+# Error logging function
+log_error() {
+    local level="$1"
+    local message="$2"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[$timestamp] [$level] $message" >> "$ERROR_LOG"
+
+    if [[ "$DEBUG_MODE" == "true" ]]; then
+        echo -e "${RED}[DEBUG] [$level] $message${NC}" >&2
+    fi
+}
+
+# Comprehensive system validation
+validate_system() {
+    local errors=0
+
+    # Check operating system
+    if [[ "$OSTYPE" != "linux"* ]] && [[ "$OSTYPE" != "darwin"* ]]; then
+        echo -e "${RED}✗ Unsupported operating system: $OSTYPE${NC}"
+        echo -e "${YELLOW}This script supports Linux and macOS only${NC}"
+        log_error "ERROR" "Unsupported OS: $OSTYPE"
+        ((errors++))
+    fi
+
+    # Check bash version
+    if [[ ${BASH_VERSION%%.*} -lt 4 ]]; then
+        echo -e "${RED}✗ Bash version too old: $BASH_VERSION${NC}"
+        echo -e "${YELLOW}Bash 4.0+ required. Please upgrade bash${NC}"
+        log_error "ERROR" "Bash version too old: $BASH_VERSION"
+        ((errors++))
+    fi
+
+    # Check required commands
+    local required_commands=("curl" "wget" "ps" "kill" "pgrep")
+    for cmd in "${required_commands[@]}"; do
+        if ! command -v "$cmd" &> /dev/null; then
+            echo -e "${RED}✗ Required command missing: $cmd${NC}"
+            echo -e "${YELLOW}Please install $cmd and try again${NC}"
+            log_error "ERROR" "Missing command: $cmd"
+            ((errors++))
+        fi
+    done
+
+    return $errors
+}
+
+# Network connectivity validation
+validate_network() {
+    local test_urls=("https://ollama.ai" "https://huggingface.co" "https://github.com")
+    local connectivity=false
+
+    echo -e "${CYAN}🌐 Checking network connectivity...${NC}"
+
+    for url in "${test_urls[@]}"; do
+        if curl -s --max-time 10 --head "$url" &> /dev/null; then
+            connectivity=true
+            break
+        fi
+    done
+
+    if [[ "$connectivity" == "false" ]]; then
+        echo -e "${RED}✗ Network connectivity issues detected${NC}"
+        echo -e "${YELLOW}Troubleshooting steps:${NC}"
+        echo -e "  1. Check internet connection"
+        echo -e "  2. Verify proxy settings: echo \$HTTP_PROXY"
+        echo -e "  3. Check firewall settings"
+        echo -e "  4. Try: curl -v https://ollama.ai"
+        log_error "ERROR" "Network connectivity failed"
+        return 1
+    fi
+
+    echo -e "${GREEN}✓ Network connectivity verified${NC}"
+    return 0
+}
+
+# Ollama installation and service validation
+validate_ollama_installation() {
+    local errors=0
+
+    # Check if ollama command exists
+    if ! command -v ollama &> /dev/null; then
+        echo -e "${RED}✗ Ollama not installed${NC}"
+        echo -e "${YELLOW}Installation options:${NC}"
+        echo -e "  1. Quick install: curl -fsSL https://ollama.ai/install.sh | sh"
+        echo -e "  2. Manual download: https://ollama.ai/download"
+        echo -e "  3. Package manager: brew install ollama (macOS)"
+        log_error "ERROR" "Ollama not installed"
+        return 1
+    fi
+
+    # Check ollama version
+    local ollama_version
+    if ollama_version=$(ollama --version 2>/dev/null); then
+        echo -e "${GREEN}✓ Ollama installed: $ollama_version${NC}"
+        log_error "INFO" "Ollama version: $ollama_version"
+    else
+        echo -e "${RED}✗ Ollama installation corrupted${NC}"
+        echo -e "${YELLOW}Try reinstalling Ollama${NC}"
+        log_error "ERROR" "Ollama installation corrupted"
+        return 1
+    fi
+
+    # Check if ollama service is running
+    if ! pgrep -f "ollama serve" > /dev/null; then
+        echo -e "${YELLOW}⚠ Ollama service not running${NC}"
+
+        if [[ "$AUTO_START_OLLAMA" == "true" ]]; then
+            echo -e "${CYAN}🚀 Starting Ollama service...${NC}"
+
+            # Try to start ollama service
+            if start_ollama_service; then
+                echo -e "${GREEN}✓ Ollama service started successfully${NC}"
+            else
+                echo -e "${RED}✗ Failed to start Ollama service${NC}"
+                return 1
+            fi
+        else
+            echo -e "${YELLOW}Please start Ollama manually: ollama serve${NC}"
+            return 1
+        fi
+    else
+        echo -e "${GREEN}✓ Ollama service is running${NC}"
+    fi
+
+    return 0
+}
+
+# Advanced Ollama service management
+start_ollama_service() {
+    local max_attempts=3
+    local attempt=1
+
+    while [[ $attempt -le $max_attempts ]]; do
+        echo -e "${CYAN}Attempt $attempt/$max_attempts: Starting Ollama...${NC}"
+
+        # Start ollama in background
+        nohup ollama serve > /dev/null 2>&1 &
+        local ollama_pid=$!
+
+        # Wait for service to initialize
+        sleep 3
+
+        # Check if service is responding
+        if curl -s http://localhost:11434/api/tags &> /dev/null; then
+            echo -e "${GREEN}✓ Ollama service started (PID: $ollama_pid)${NC}"
+            log_error "INFO" "Ollama service started successfully (PID: $ollama_pid)"
+            return 0
+        fi
+
+        # Check for port conflicts
+        if netstat -tuln 2>/dev/null | grep -q ":11434"; then
+            echo -e "${RED}✗ Port 11434 already in use${NC}"
+            echo -e "${YELLOW}Try: sudo lsof -i :11434${NC}"
+            log_error "ERROR" "Port 11434 conflict"
+            return 1
+        fi
+
+        ((attempt++))
+        sleep 2
+    done
+
+    echo -e "${RED}✗ Failed to start Ollama after $max_attempts attempts${NC}"
+    log_error "ERROR" "Failed to start Ollama service after $max_attempts attempts"
+    return 1
+}
+
+# Resource validation and monitoring
+validate_system_resources() {
+    local warnings=0
+
+    echo -e "${CYAN}📊 Checking system resources...${NC}"
+
+    # Check available RAM
+    local total_ram_gb
+    if [[ "$OSTYPE" == "linux"* ]]; then
+        total_ram_gb=$(free -g | awk 'NR==2{printf "%.0f", $2}')
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        total_ram_gb=$(echo "$(sysctl -n hw.memsize) / 1024 / 1024 / 1024" | bc)
+    fi
+
+    if [[ $total_ram_gb -lt 8 ]]; then
+        echo -e "${YELLOW}⚠ Low system RAM: ${total_ram_gb}GB (8GB+ recommended)${NC}"
+        echo -e "  • Consider using smaller models (1B-3B parameters)"
+        echo -e "  • Use efficient profiles (technical, code)"
+        log_error "WARNING" "Low RAM: ${total_ram_gb}GB"
+        ((warnings++))
+    else
+        echo -e "${GREEN}✓ System RAM: ${total_ram_gb}GB${NC}"
+    fi
+
+    # Check available disk space
+    local available_space_gb
+    available_space_gb=$(df "$HOME" | awk 'NR==2 {printf "%.0f", $4/1024/1024}')
+
+    if [[ $available_space_gb -lt $MIN_DISK_SPACE_GB ]]; then
+        echo -e "${RED}✗ Insufficient disk space: ${available_space_gb}GB${NC}"
+        echo -e "${YELLOW}At least ${MIN_DISK_SPACE_GB}GB required for model downloads${NC}"
+        echo -e "  • Clean up space: rm -rf ~/.ollama/models/blobs/*"
+        echo -e "  • Remove unused models: ollama rm <model_name>"
+        log_error "ERROR" "Insufficient disk space: ${available_space_gb}GB"
+        return 1
+    else
+        echo -e "${GREEN}✓ Available disk space: ${available_space_gb}GB${NC}"
+    fi
+
+    # Check GPU availability (optional)
+    if command -v nvidia-smi &> /dev/null; then
+        if nvidia-smi &> /dev/null; then
+            local gpu_info
+            gpu_info=$(nvidia-smi --query-gpu=name,memory.total --format=csv,noheader,nounits | head -1)
+            echo -e "${GREEN}✓ GPU detected: $gpu_info${NC}"
+        else
+            echo -e "${YELLOW}⚠ NVIDIA GPU tools found but GPU not accessible${NC}"
+            ((warnings++))
+        fi
+    fi
+
+    if [[ $warnings -gt 0 ]]; then
+        echo -e "${YELLOW}System check completed with $warnings warning(s)${NC}"
+    fi
+
+    return 0
+}
+
+# Model validation and management
+validate_model() {
+    local model_name="$1"
+
+    if [[ -z "$model_name" ]]; then
+        echo -e "${RED}✗ Model name cannot be empty${NC}"
+        return 1
+    fi
+
+    # Sanitize model name
+    if [[ ! "$model_name" =~ ^[a-zA-Z0-9._:-]+$ ]]; then
+        echo -e "${RED}✗ Invalid model name: $model_name${NC}"
+        echo -e "${YELLOW}Model names can only contain: letters, numbers, dots, hyphens, colons${NC}"
+        return 1
+    fi
+
+    # Check if model exists locally
+    if ollama list | grep -q "^$model_name"; then
+        echo -e "${GREEN}✓ Model '$model_name' found locally${NC}"
+        return 0
+    fi
+
+    # Check if model exists in registry
+    echo -e "${CYAN}🔍 Checking model availability in registry...${NC}"
+
+    # Try to get model info without downloading
+    if timeout 30 ollama show "$model_name" &> /dev/null; then
+        echo -e "${GREEN}✓ Model '$model_name' found in registry${NC}"
+        return 0
+    else
+        echo -e "${RED}✗ Model '$model_name' not found${NC}"
+        echo -e "${YELLOW}Suggestions:${NC}"
+        echo -e "  • Check spelling: ollama list"
+        echo -e "  • Browse available models: https://ollama.ai/library"
+        echo -e "  • Try similar models: llama3.2, mistral, gemma2"
+        log_error "ERROR" "Model not found: $model_name"
+        return 1
+    fi
+}
+
+# Safe model download with progress and error handling
+safe_model_download() {
+    local model_name="$1"
+    local max_retries=3
+    local retry=0
+
+    while [[ $retry -lt $max_retries ]]; do
+        echo -e "${CYAN}📥 Downloading '$model_name' (attempt $((retry + 1))/$max_retries)...${NC}"
+
+        # Start download with timeout
+        if timeout "$DOWNLOAD_TIMEOUT" ollama pull "$model_name"; then
+            echo -e "${GREEN}✓ Model '$model_name' downloaded successfully${NC}"
+            log_error "INFO" "Model downloaded: $model_name"
+            return 0
+        else
+            local exit_code=$?
+
+            case $exit_code in
+                124)
+                    echo -e "${RED}✗ Download timeout after ${DOWNLOAD_TIMEOUT}s${NC}"
+                    log_error "ERROR" "Download timeout: $model_name"
+                    ;;
+                130)
+                    echo -e "${YELLOW}Download interrupted by user${NC}"
+                    return 1
+                    ;;
+                *)
+                    echo -e "${RED}✗ Download failed (exit code: $exit_code)${NC}"
+                    log_error "ERROR" "Download failed: $model_name (exit code: $exit_code)"
+                    ;;
+            esac
+
+            ((retry++))
+
+            if [[ $retry -lt $max_retries ]]; then
+                echo -e "${YELLOW}Retrying in 5 seconds...${NC}"
+                sleep 5
+            fi
+        fi
+    done
+
+    echo -e "${RED}✗ Failed to download '$model_name' after $max_retries attempts${NC}"
+    echo -e "${YELLOW}Troubleshooting:${NC}"
+    echo -e "  • Check network connection"
+    echo -e "  • Verify model name: ollama search $model_name"
+    echo -e "  • Try smaller model first"
+    echo -e "  • Check disk space"
+
+    return 1
+}
+
+# Input validation and sanitization
+validate_user_input() {
+    local input="$1"
+    local input_type="$2"
+
+    case "$input_type" in
+        "choice")
+            if [[ ! "$input" =~ ^[0-9]+$ ]] || [[ $input -lt 0 ]] || [[ $input -gt 53 ]]; then
+                echo -e "${RED}✗ Invalid choice: $input${NC}"
+                echo -e "${YELLOW}Please enter a number between 0-53${NC}"
+                return 1
+            fi
+            ;;
+        "profile")
+            if [[ ! "$input" =~ ^[1-9]$ ]]; then
+                echo -e "${RED}✗ Invalid profile: $input${NC}"
+                echo -e "${YELLOW}Please enter a number between 1-9${NC}"
+                return 1
+            fi
+            ;;
+        "model_name")
+            if [[ ${#input} -gt 100 ]] || [[ ! "$input" =~ ^[a-zA-Z0-9._:-]+$ ]]; then
+                echo -e "${RED}✗ Invalid model name: $input${NC}"
+                echo -e "${YELLOW}Model names must be under 100 characters and contain only letters, numbers, dots, hyphens, colons${NC}"
+                return 1
+            fi
+            ;;
+        "temperature")
+            if ! [[ "$input" =~ ^[0-9]+(\.[0-9]+)?$ ]] || (( $(echo "$input > 2.0" | bc -l) )); then
+                echo -e "${RED}✗ Invalid temperature: $input${NC}"
+                echo -e "${YELLOW}Temperature must be a number between 0.0-2.0${NC}"
+                return 1
+            fi
+            ;;
+    esac
+
+    return 0
+}
+
+# Runtime error monitoring
+monitor_model_execution() {
+    local model_name="$1"
+    local timeout_duration=300  # 5 minutes
+
+    echo -e "${CYAN}🎯 Starting model '$model_name' with monitoring...${NC}"
+
+    # Start model and get PID
+    local start_time=$(date +%s)
+
+    # Monitor for common issues
+    {
+        sleep $timeout_duration
+        echo -e "${YELLOW}⚠ Model running longer than expected (${timeout_duration}s)${NC}"
+        echo -e "${YELLOW}Press Ctrl+C to interrupt if needed${NC}"
+    } &
+    local timeout_pid=$!
+
+    # Cleanup function
+    cleanup_monitoring() {
+        kill $timeout_pid 2>/dev/null
+        local end_time=$(date +%s)
+        local duration=$((end_time - start_time))
+        log_error "INFO" "Model session duration: ${duration}s"
+    }
+
+    # Set trap for cleanup
+    trap cleanup_monitoring EXIT INT TERM
+
+    return 0
+}
+
+# ===============================================
+# END ERROR HANDLING SYSTEM
+# ===============================================
+
 # Load configuration file
 load_config() {
     if [[ -f "$CONFIG_FILE" ]]; then
@@ -55,6 +456,7 @@ load_config() {
                 MIN_DISK_SPACE_GB) MIN_DISK_SPACE_GB="$value" ;;
                 SHOW_COLORS) SHOW_COLORS="$value" ;;
                 SHOW_BANNER) SHOW_BANNER="$value" ;;
+                DEBUG_MODE) DEBUG_MODE="$value" ;;
             esac
         done < "$CONFIG_FILE"
     fi
@@ -80,55 +482,42 @@ show_header() {
     echo
 }
 
-# Function to check if ollama is running
-check_ollama_service() {
-    # Check if ollama command exists
-    if ! command -v ollama &> /dev/null; then
-        echo -e "${RED}✗ Ollama not found. Please install Ollama first.${NC}"
-        echo -e "${YELLOW}Visit: https://ollama.ai/download${NC}"
+# REPLACED: Old check_ollama_service() function replaced with comprehensive error handling system
+# Comprehensive system initialization with error handling
+initialize_system() {
+    echo -e "${CYAN}🔧 Initializing Universal Ollama Optimizer...${NC}"
+    echo
+
+    # Run comprehensive system validation
+    if ! validate_system; then
+        echo -e "${RED}✗ System validation failed${NC}"
+        echo -e "${YELLOW}Please resolve the issues above and try again${NC}"
         exit 1
     fi
 
-    # Check if ollama service is running
-    if ! pgrep -x "ollama" > /dev/null; then
-        echo -e "${YELLOW}Starting Ollama service...${NC}"
-
-        # Try to start ollama service
-        ollama serve > /dev/null 2>&1 &
-        OLLAMA_PID=$!
-
-        # Give it a moment to start
-        sleep 2
-
-        # Check if the process is still running
-        if ! kill -0 $OLLAMA_PID 2>/dev/null; then
-            echo -e "${RED}✗ Failed to start Ollama service. Permission denied or port conflict.${NC}"
-            echo -e "${YELLOW}Try: sudo ollama serve or check if port 11434 is in use${NC}"
-            exit 1
-        fi
-
-        # Wait for service to start with timeout
-        local count=0
-        while [[ $count -lt 10 ]] && ! pgrep -x "ollama" > /dev/null; do
-            sleep 1
-            ((count++))
-        done
-
-        if ! pgrep -x "ollama" > /dev/null; then
-            echo -e "${RED}✗ Ollama service failed to start after 10 seconds${NC}"
-            echo -e "${YELLOW}Check logs: journalctl -u ollama -n 20${NC}"
-            exit 1
-        fi
+    # Validate network connectivity (for model downloads)
+    if ! validate_network; then
+        echo -e "${YELLOW}⚠ Network issues detected - offline model usage only${NC}"
+        echo "Continuing with local models..."
+        echo
     fi
 
-    # Verify ollama API is responding
-    if ! curl -s http://localhost:11434/api/tags > /dev/null 2>&1; then
-        echo -e "${RED}✗ Ollama API not responding on port 11434${NC}"
-        echo -e "${YELLOW}Check if another service is using port 11434${NC}"
+    # Validate Ollama installation and service
+    if ! validate_ollama_installation; then
+        echo -e "${RED}✗ Ollama validation failed${NC}"
+        echo -e "${YELLOW}Please install/fix Ollama and try again${NC}"
         exit 1
     fi
 
-    echo -e "${GREEN}✓ Ollama service is running${NC}"
+    # Check system resources
+    if ! validate_system_resources; then
+        echo -e "${RED}✗ System resource check failed${NC}"
+        echo -e "${YELLOW}Please address resource issues and try again${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}✓ System initialization completed successfully${NC}"
+    echo
 }
 
 # Function to list available models
@@ -300,6 +689,11 @@ get_model_selection() {
 
         read -p "Enter your choice (0-53): " choice
 
+        # Validate user input
+        if ! validate_user_input "$choice" "choice"; then
+            continue
+        fi
+
         case $choice in
             0)
                 echo -e "${YELLOW}Goodbye!${NC}"
@@ -308,11 +702,18 @@ get_model_selection() {
             51)
                 echo
                 read -p "Enter custom model name (e.g., llama3.2:latest): " custom_model
-                if [[ -n "$custom_model" ]]; then
-                    MODEL_NAME="$custom_model"
-                    return 0
+
+                # Validate and sanitize model name
+                if validate_user_input "$custom_model" "model_name"; then
+                    if validate_model "$custom_model"; then
+                        MODEL_NAME="$custom_model"
+                        return 0
+                    else
+                        echo -e "${YELLOW}Model validation failed. Press Enter to continue...${NC}"
+                        read
+                        continue
+                    fi
                 else
-                    echo -e "${RED}Invalid model name${NC}"
                     continue
                 fi
                 ;;
@@ -321,11 +722,18 @@ get_model_selection() {
                 list_available_models
                 echo
                 read -p "Enter model name from above list: " local_model
-                if [[ -n "$local_model" ]]; then
-                    MODEL_NAME="$local_model"
-                    return 0
+
+                # Validate and sanitize model name
+                if validate_user_input "$local_model" "model_name"; then
+                    if validate_model "$local_model"; then
+                        MODEL_NAME="$local_model"
+                        return 0
+                    else
+                        echo -e "${YELLOW}Model validation failed. Press Enter to continue...${NC}"
+                        read
+                        continue
+                    fi
                 else
-                    echo -e "${RED}Invalid model name${NC}"
                     continue
                 fi
                 ;;
@@ -340,7 +748,15 @@ get_model_selection() {
                 if [[ $choice -ge 1 && $choice -le 50 ]]; then
                     MODEL_NAME="${MODELS[$((choice-1))]}"
                     echo -e "${GREEN}Selected: ${CYAN}$MODEL_NAME${NC}"
-                    return 0
+
+                    # Validate selected model
+                    if validate_model "$MODEL_NAME"; then
+                        return 0
+                    else
+                        echo -e "${YELLOW}Model validation failed. Press Enter to continue...${NC}"
+                        read
+                        continue
+                    fi
                 else
                     echo -e "${RED}Invalid choice. Please select 0-53.${NC}"
                     continue
@@ -657,32 +1073,48 @@ main() {
         show_header
     fi
 
-    # Check Ollama service if auto-start enabled
-    if [[ "$AUTO_START_OLLAMA" == "true" ]]; then
-        check_ollama_service
-    fi
+    # Initialize system with comprehensive validation
+    initialize_system
 
     # Get model selection from user using comprehensive menu
     get_model_selection
 
+    # Model validation is now handled in get_model_selection
     if [[ -z "$MODEL_NAME" ]]; then
         echo -e "${RED}No model name provided. Exiting.${NC}"
+        log_error "ERROR" "No model name provided"
         exit 1
     fi
 
-    # Validate and potentially download model
-    if ! validate_model "$MODEL_NAME"; then
-        echo -e "${RED}Cannot proceed without a valid model. Exiting.${NC}"
-        exit 1
+    # Check if model needs to be downloaded
+    if ! ollama list | grep -q "^$MODEL_NAME"; then
+        echo -e "${CYAN}Model '$MODEL_NAME' not found locally. Downloading...${NC}"
+        if ! safe_model_download "$MODEL_NAME"; then
+            echo -e "${RED}Failed to download model. Exiting.${NC}"
+            log_error "ERROR" "Failed to download model: $MODEL_NAME"
+            exit 1
+        fi
     fi
+
+    # Start monitoring for this session
+    monitor_model_execution "$MODEL_NAME"
 
     show_header
     get_model_info "$MODEL_NAME"
     check_system_resources
     show_profile_selection
 
-    read -p "Select profile [1-9] (default: 1): " choice
-    choice=${choice:-1}
+    # Get profile selection with validation
+    while true; do
+        read -p "Select profile [1-9] (default: 1): " choice
+        choice=${choice:-1}
+
+        # Validate profile selection
+        if validate_user_input "$choice" "profile"; then
+            break
+        fi
+        echo -e "${YELLOW}Please try again.${NC}"
+    done
 
     case $choice in
         1)
@@ -729,12 +1161,31 @@ main() {
 
     show_parameter_instructions "$PARAMS" "$SELECTED_PROFILE"
 
-    echo -e "${GREEN}Starting $MODEL_NAME...${NC}"
+    echo -e "${GREEN}Starting $MODEL_NAME with $SELECTED_PROFILE profile...${NC}"
     echo -e "${CYAN}Press Ctrl+C to exit${NC}"
     echo
 
-    # Launch the model
-    ollama run "$MODEL_NAME"
+    # Log session start
+    log_error "INFO" "Starting model session: $MODEL_NAME with $SELECTED_PROFILE profile"
+
+    # Launch the model with error handling
+    if ! ollama run "$MODEL_NAME"; then
+        local exit_code=$?
+        echo -e "${RED}✗ Model execution failed (exit code: $exit_code)${NC}"
+
+        # Provide troubleshooting suggestions
+        echo -e "${YELLOW}Troubleshooting suggestions:${NC}"
+        echo -e "  • Check if model is corrupted: ollama rm $MODEL_NAME && ollama pull $MODEL_NAME"
+        echo -e "  • Verify system resources: free -h && df -h"
+        echo -e "  • Check Ollama service: pgrep ollama"
+        echo -e "  • View error log: tail -20 $ERROR_LOG"
+
+        log_error "ERROR" "Model execution failed: $MODEL_NAME (exit code: $exit_code)"
+        exit $exit_code
+    fi
+
+    # Log successful completion
+    log_error "INFO" "Model session completed successfully: $MODEL_NAME"
 }
 
 # Run main function
