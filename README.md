@@ -250,6 +250,62 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+## 🤖 Recommended Ollama Models (2025)
+
+### **Latest & Most Capable Models**
+
+#### **🧠 General Purpose & Reasoning**
+- **`llama3.1:8b`** - Meta's latest 8B model, excellent balance of performance and efficiency
+- **`llama3.1:70b`** - High-performance 70B model for complex reasoning tasks
+- **`deepseek-r1:7b`** - Advanced reasoning model, excellent for logic and analysis
+- **`qwen3:8b`** - Alibaba's latest model with strong multilingual capabilities
+
+#### **💻 Code Generation & Programming**
+- **`deepseek-coder:33b`** - Premier coding model for complex programming tasks
+- **`codellama:34b`** - Meta's specialized coding model, excellent context understanding
+- **`qwen2.5-coder:32b`** - Multi-language development powerhouse
+
+#### **⚡ Lightweight & Efficient**
+- **`gemma3:2b`** - Google's compact yet powerful model (requires only 4GB RAM)
+- **`phi3:3.8b`** - Microsoft's efficient model, great for edge devices
+- **`llama3.2:3b`** - Compact version of Llama for resource-constrained systems
+
+#### **🎨 Creative & Conversational**
+- **`gemma3:9b`** - Excellent for creative writing and dialogue
+- **`mistral:7b`** - Well-balanced model for general conversation
+- **`llama3.1:8b`** - Versatile for both creative and technical tasks
+
+### **Model Selection Guide**
+
+| Use Case | Recommended Model | RAM Required | Best Profile |
+|----------|------------------|--------------|--------------|
+| **General Chat** | `llama3.1:8b` | 8GB | Balanced |
+| **Code Development** | `deepseek-coder:33b` | 32GB | Code |
+| **Creative Writing** | `gemma3:9b` | 16GB | Creative |
+| **Technical Analysis** | `deepseek-r1:7b` | 8GB | Technical |
+| **Lightweight Tasks** | `phi3:3.8b` | 4GB | Balanced |
+| **Multilingual** | `qwen3:8b` | 8GB | Balanced |
+
+### **Quick Download Commands**
+```bash
+# Most popular general-purpose model
+ollama pull llama3.1:8b
+
+# Best coding assistant
+ollama pull deepseek-coder:33b
+
+# Lightweight for older hardware
+ollama pull phi3:3.8b
+
+# Creative writing specialist
+ollama pull gemma3:9b
+
+# Advanced reasoning
+ollama pull deepseek-r1:7b
+```
+
+*Note: Model availability and performance may vary. Check [ollama.com/library](https://ollama.com/library) for the latest models.*
+
 ## 🔍 SEO Keywords & Search Terms
 
 ### **Primary Keywords**
