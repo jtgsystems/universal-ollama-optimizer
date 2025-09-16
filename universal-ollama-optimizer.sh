@@ -251,7 +251,7 @@ show_model_selection_menu() {
     echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
     echo
 
-    # Array of model names corresponding to menu numbers
+    # Array of model names and descriptions corresponding to menu numbers
     MODELS=(
         "llama3.3:70b-instruct" "llama3.1:8b-instruct" "llama3.1:70b-instruct" "deepseek-r1" "deepseek-r1:32b"
         "deepseek-coder:33b" "codellama:34b" "qwen2.5-coder:32b" "codellama:13b-instruct" "deepseek-coder:6.7b"
@@ -264,6 +264,20 @@ show_model_selection_menu() {
         "neural-chat:7b" "dolphin-mistral:7b" "solar:10.7b" "nous-hermes2:latest" "alpaca:7b"
         "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
     )
+
+    # Model descriptions array (corresponding to MODELS array)
+    MODEL_DESCRIPTIONS=(
+        "Meta's 2025 flagship, rivals GPT-4 performance" "Community favorite, best balance" "High-performance enterprise" "Advanced reasoning powerhouse" "Large reasoning model"
+        "#1 coding model, complex tasks" "Meta's specialized coding model" "Latest code generation improvements" "Balanced coding performance" "Lightweight coding assistant"
+        "Google's coding model" "Community favorite for beginners" "Microsoft's edge-optimized" "Compact Llama lightweight" "Google's efficient model"
+        "Alibaba's balanced model" "Latest Microsoft lightweight" "Ultra-lightweight 1.1B" "Leading vision model for images" "Advanced multimodal processing"
+        "Excellent creative writing" "Large vision language model" "Alternative vision model" "Lightweight vision model" "Massive flagship model"
+        "Mixture of Experts 8x7B" "Large MoE 8x22B" "Cohere's command model" "Enhanced conversation model" "Microsoft's Orca variant"
+        "Enhanced reasoning" "Research assistant model" "Open conversation model" "Berkeley research model" "Hugging Face model"
+        "Strong multilingual support" "Chinese-English bilingual" "Multilingual instruction model" "Chinese language model" "Chinese conversation model"
+        "Fast conversation model" "Uncensored variant" "Solar Pro model" "Nous Research model" "Stanford's Alpaca"
+        "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model"
+    )
 }
 
 # Function to get model selection from user
@@ -274,10 +288,11 @@ get_model_selection() {
         echo -e "${GREEN}Choose an option:${NC}"
         echo -e "${CYAN}51)${NC} Enter custom model name"
         echo -e "${CYAN}52)${NC} Show my local models only"
+        echo -e "${CYAN}53)${NC} Update all installed models"
         echo -e "${CYAN} 0)${NC} Exit"
         echo
 
-        read -p "Enter your choice (0-52): " choice
+        read -p "Enter your choice (0-53): " choice
 
         case $choice in
             0)
@@ -308,22 +323,81 @@ get_model_selection() {
                     continue
                 fi
                 ;;
+            53)
+                echo
+                update_all_models
+                echo
+                read -p "Press Enter to continue..."
+                continue
+                ;;
             [1-9]|[1-4][0-9]|50)
                 if [[ $choice -ge 1 && $choice -le 50 ]]; then
                     MODEL_NAME="${MODELS[$((choice-1))]}"
                     echo -e "${GREEN}Selected: ${CYAN}$MODEL_NAME${NC}"
                     return 0
                 else
-                    echo -e "${RED}Invalid choice. Please select 0-52.${NC}"
+                    echo -e "${RED}Invalid choice. Please select 0-53.${NC}"
                     continue
                 fi
                 ;;
             *)
-                echo -e "${RED}Invalid choice. Please select 0-52.${NC}"
+                echo -e "${RED}Invalid choice. Please select 0-53.${NC}"
                 continue
                 ;;
         esac
     done
+}
+
+# Function to update all installed models (from Ollama-Menu)
+update_all_models() {
+    echo -e "${GREEN}🔄 Updating All Installed Models${NC}"
+    echo -e "${BLUE}════════════════════════════════${NC}"
+    echo
+
+    # Get list of currently installed models
+    local installed_models=$(ollama list 2>/dev/null | awk 'NR>1 {print $1}' | grep -v '^$')
+
+    if [[ -z "$installed_models" ]]; then
+        echo -e "${YELLOW}⚠️ No models found to update${NC}"
+        return 0
+    fi
+
+    echo -e "${CYAN}Found the following installed models:${NC}"
+    echo "$installed_models" | while read model; do
+        echo -e "  • ${YELLOW}$model${NC}"
+    done
+    echo
+
+    read -p "Continue with updates? (y/n): " confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo -e "${YELLOW}Update cancelled${NC}"
+        return 0
+    fi
+
+    echo
+    echo -e "${GREEN}Starting model updates...${NC}"
+    echo
+
+    local success_count=0
+    local total_count=0
+
+    echo "$installed_models" | while read model; do
+        if [[ -n "$model" ]]; then
+            total_count=$((total_count + 1))
+            echo -e "${CYAN}Updating: $model${NC}"
+
+            if ollama pull "$model" 2>/dev/null; then
+                echo -e "${GREEN}✓ Successfully updated: $model${NC}"
+                success_count=$((success_count + 1))
+            else
+                echo -e "${RED}✗ Failed to update: $model${NC}"
+            fi
+            echo
+        fi
+    done
+
+    echo -e "${GREEN}🎉 Update process completed${NC}"
+    echo -e "${CYAN}Updated models successfully${NC}"
 }
 
 # Function to validate model name
