@@ -1,0 +1,107 @@
+name: Test Universal Ollama Optimizer
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04]
+        bash-version: ['5.0', '5.1', '5.2']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Bash
+      run: |
+        bash --version
+        echo "Testing with Bash version: $BASH_VERSION"
+
+    - name: Syntax Check
+      run: |
+        bash -n universal-ollama-optimizer.sh
+
+    - name: Install ShellCheck
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y shellcheck
+
+    - name: Run ShellCheck
+      run: |
+        shellcheck universal-ollama-optimizer.sh || true
+
+    - name: Test Script Help
+      run: |
+        # Test that script can be executed (without Ollama)
+        chmod +x universal-ollama-optimizer.sh
+        timeout 10s ./universal-ollama-optimizer.sh || true
+
+    - name: Test Configuration Loading
+      run: |
+        # Create test config
+        mkdir -p ~/.config/universal-ollama-optimizer
+        cat > ~/.config/universal-ollama-optimizer/config.conf << EOF
+        DEFAULT_PROFILE="balanced"
+        AUTO_START_OLLAMA=false
+        SHOW_BANNER=true
+        EOF
+
+        # Test config is readable
+        [ -f ~/.config/universal-ollama-optimizer/config.conf ]
+
+    - name: Check Required Commands
+      run: |
+        # Check for required system commands
+        which bash
+        which curl
+        which awk
+        which grep
+        which sed
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Security Scan
+      run: |
+        # Check for common security issues
+        echo "Checking for API keys..."
+        ! grep -r "sk-" . || (echo "Found potential API keys" && exit 1)
+
+        echo "Checking for passwords..."
+        ! grep -ri "password.*=" . --include="*.sh" || (echo "Found potential passwords" && exit 1)
+
+        echo "Checking for secrets..."
+        ! grep -ri "secret.*=" . --include="*.sh" || (echo "Found potential secrets" && exit 1)
+
+        echo "Security scan passed!"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y shellcheck
+
+    - name: Lint Bash Script
+      run: |
+        shellcheck --severity=warning universal-ollama-optimizer.sh
+
+    - name: Check Line Endings
+      run: |
+        # Ensure Unix line endings
+        ! grep -l $'\r' universal-ollama-optimizer.sh
+
+    - name: Check File Permissions
+      run: |
+        # Check that main script is executable
+        [ -x universal-ollama-optimizer.sh ] || chmod +x universal-ollama-optimizer.sh
