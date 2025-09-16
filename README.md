@@ -251,59 +251,76 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🤖 Recommended Ollama Models (2025)
+## 🤖 Recommended Ollama Models (September 2025)
 
-### **Latest & Most Capable Models**
+*Based on latest community recommendations and performance benchmarks*
 
-#### **🧠 General Purpose & Reasoning**
-- **`llama3.1:8b`** - Meta's latest 8B model, excellent balance of performance and efficiency
-- **`llama3.1:70b`** - High-performance 70B model for complex reasoning tasks
-- **`deepseek-r1:7b`** - Advanced reasoning model, excellent for logic and analysis
-- **`qwen3:8b`** - Alibaba's latest model with strong multilingual capabilities
+### **🏆 Top-Tier Models (September 2025)**
 
-#### **💻 Code Generation & Programming**
-- **`deepseek-coder:33b`** - Premier coding model for complex programming tasks
-- **`codellama:34b`** - Meta's specialized coding model, excellent context understanding
-- **`qwen2.5-coder:32b`** - Multi-language development powerhouse
+#### **🧠 Best Overall Performance**
+- **`llama3.3:70b`** - Meta's flagship 2025 model, rivals GPT-4 performance locally
+- **`llama3.1:8b`** - Community favorite, best balance of performance and efficiency
+- **`llama3.1:70b`** - High-performance for complex reasoning and enterprise use
+- **`deepseek-r1`** - Powerhouse for deep logical reasoning and analysis
 
-#### **⚡ Lightweight & Efficient**
-- **`gemma3:2b`** - Google's compact yet powerful model (requires only 4GB RAM)
-- **`phi3:3.8b`** - Microsoft's efficient model, great for edge devices
-- **`llama3.2:3b`** - Compact version of Llama for resource-constrained systems
+#### **💻 Premier Coding Models**
+- **`deepseek-coder:33b`** - #1 coding model, excels at complex programming tasks
+- **`codellama:34b`** - Meta's specialized coding model with excellent context understanding
+- **`qwen2.5-coder:32b`** - Latest Alibaba model with significant code generation improvements
 
-#### **🎨 Creative & Conversational**
-- **`gemma3:9b`** - Excellent for creative writing and dialogue
-- **`mistral:7b`** - Well-balanced model for general conversation
-- **`llama3.1:8b`** - Versatile for both creative and technical tasks
+#### **⚡ Resource-Efficient Champions**
+- **`mistral:7b-instruct`** - Community-recommended for beginners, excellent performance/resource ratio
+- **`phi3:mini`** - Microsoft's edge-optimized model for constrained environments
+- **`llama3.2:3b`** - Compact Llama for lightweight deployments
+- **`gemma2:9b`** - Google's efficient model, great for general tasks
 
-### **Model Selection Guide**
+#### **🎨 Creative & Multimodal**
+- **`llava:latest`** - Leading vision model for image analysis and VQA
+- **`qwen-vl`** - Advanced multimodal model for document and image processing
+- **`gemma2:27b`** - Excellent for creative writing and content generation
 
-| Use Case | Recommended Model | RAM Required | Best Profile |
-|----------|------------------|--------------|--------------|
-| **General Chat** | `llama3.1:8b` | 8GB | Balanced |
-| **Code Development** | `deepseek-coder:33b` | 32GB | Code |
-| **Creative Writing** | `gemma3:9b` | 16GB | Creative |
-| **Technical Analysis** | `deepseek-r1:7b` | 8GB | Technical |
-| **Lightweight Tasks** | `phi3:3.8b` | 4GB | Balanced |
-| **Multilingual** | `qwen3:8b` | 8GB | Balanced |
+### **📊 Performance Matrix (September 2025)**
 
-### **Quick Download Commands**
+| Use Case | Top Model | Alternative | RAM Required | Best Profile |
+|----------|-----------|-------------|--------------|--------------|
+| **General Chat** | `llama3.3:70b` | `llama3.1:8b` | 64GB / 8GB | Balanced |
+| **Code Development** | `deepseek-coder:33b` | `codellama:34b` | 32GB | Code |
+| **Reasoning Tasks** | `deepseek-r1` | `llama3.1:70b` | 16GB / 64GB | Reasoning |
+| **Creative Writing** | `gemma2:27b` | `mistral:7b` | 32GB / 8GB | Creative |
+| **Resource-Limited** | `mistral:7b-instruct` | `phi3:mini` | 8GB / 4GB | Balanced |
+| **Vision/Multimodal** | `llava:latest` | `qwen-vl` | 16GB | Technical |
+| **Function Calling** | `llama3.1:8b-instruct` | `mistral:7b-instruct` | 8GB | Technical |
+
+### **🚀 Quick Download Commands (September 2025)**
 ```bash
-# Most popular general-purpose model
-ollama pull llama3.1:8b
+# Most recommended overall (2025 flagship)
+ollama pull llama3.3:70b-instruct
 
-# Best coding assistant
+# Best general-purpose (community favorite)
+ollama pull llama3.1:8b-instruct
+
+# Premier coding assistant
 ollama pull deepseek-coder:33b
 
-# Lightweight for older hardware
-ollama pull phi3:3.8b
+# Best for beginners/limited hardware
+ollama pull mistral:7b-instruct
 
-# Creative writing specialist
-ollama pull gemma3:9b
+# Advanced reasoning powerhouse
+ollama pull deepseek-r1
 
-# Advanced reasoning
-ollama pull deepseek-r1:7b
+# Vision and image analysis
+ollama pull llava:latest
+
+# Lightweight edge computing
+ollama pull phi3:mini
 ```
+
+### **💡 2025 Community Insights**
+- **Llama 3.3** has become the gold standard for local deployment
+- **DeepSeek models** dominate coding and reasoning benchmarks
+- **Mistral 7B** remains the go-to recommendation for newcomers
+- **Vision models** like LLaVA are gaining massive adoption
+- Over **1,700+ models** now available in Ollama ecosystem
 
 *Note: Model availability and performance may vary. Check [ollama.com/library](https://ollama.com/library) for the latest models.*
 
