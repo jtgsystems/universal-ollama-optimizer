@@ -167,31 +167,31 @@ show_model_selection_menu() {
     echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
     echo
 
-    echo -e "${YELLOW}🏆 TOP-TIER MODELS (September 2025)${NC}"
-    echo -e "${CYAN} 1)${NC} llama3.3:70b-instruct    ${GREEN}[64GB RAM]${NC} - Meta's 2025 flagship, rivals GPT-4"
-    echo -e "${CYAN} 2)${NC} llama3.1:8b-instruct     ${GREEN}[8GB RAM]${NC}  - Community favorite, best balance"
-    echo -e "${CYAN} 3)${NC} llama3.1:70b-instruct    ${GREEN}[64GB RAM]${NC} - High-performance enterprise"
-    echo -e "${CYAN} 4)${NC} deepseek-r1              ${GREEN}[16GB RAM]${NC} - Advanced reasoning powerhouse"
-    echo -e "${CYAN} 5)${NC} deepseek-r1:32b          ${GREEN}[32GB RAM]${NC} - Large reasoning model"
+    echo -e "${YELLOW}🏆 TOP-TIER MODELS (September 2025 - Latest)${NC}"
+    echo -e "${CYAN} 1)${NC} gpt-oss:20b              ${GREEN}[20GB RAM]${NC} - OpenAI's new open-weight model"
+    echo -e "${CYAN} 2)${NC} gpt-oss:120b             ${GREEN}[120GB RAM]${NC} - OpenAI's flagship open model"
+    echo -e "${CYAN} 3)${NC} deepseek-r1              ${GREEN}[40GB RAM]${NC} - 671B reasoning with thinking mode"
+    echo -e "${CYAN} 4)${NC} gemma3:27b               ${GREEN}[32GB RAM]${NC} - Google's most capable single-GPU model"
+    echo -e "${CYAN} 5)${NC} llama3.3:70b-instruct    ${GREEN}[64GB RAM]${NC} - Meta's 2025 flagship, rivals GPT-4"
     echo
 
-    echo -e "${YELLOW}💻 PREMIER CODING MODELS${NC}"
-    echo -e "${CYAN} 6)${NC} deepseek-coder:33b       ${GREEN}[32GB RAM]${NC} - #1 coding model, complex tasks"
-    echo -e "${CYAN} 7)${NC} codellama:34b            ${GREEN}[32GB RAM]${NC} - Meta's specialized coding model"
-    echo -e "${CYAN} 8)${NC} qwen2.5-coder:32b        ${GREEN}[32GB RAM]${NC} - Alibaba's latest code improvements"
-    echo -e "${CYAN} 9)${NC} codellama:13b-instruct   ${GREEN}[16GB RAM]${NC} - Balanced coding performance"
-    echo -e "${CYAN}10)${NC} deepseek-coder:6.7b      ${GREEN}[8GB RAM]${NC}  - Lightweight coding assistant"
+    echo -e "${YELLOW}💻 PREMIER CODING MODELS (2025 Latest)${NC}"
+    echo -e "${CYAN} 6)${NC} qwen3-coder:30b          ${GREEN}[30GB RAM]${NC} - Alibaba's latest 2025 coding model"
+    echo -e "${CYAN} 7)${NC} deepseek-coder:33b       ${GREEN}[32GB RAM]${NC} - #1 coding model, complex tasks"
+    echo -e "${CYAN} 8)${NC} codellama:34b            ${GREEN}[32GB RAM]${NC} - Meta's specialized coding model"
+    echo -e "${CYAN} 9)${NC} qwen2.5-coder:32b        ${GREEN}[32GB RAM]${NC} - Previous Alibaba code model"
+    echo -e "${CYAN}10)${NC} codellama:13b-instruct   ${GREEN}[16GB RAM]${NC} - Balanced coding performance"
     echo -e "${CYAN}11)${NC} codegemma:7b             ${GREEN}[8GB RAM]${NC}  - Google's coding model"
     echo
 
-    echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS${NC}"
-    echo -e "${CYAN}12)${NC} mistral:7b-instruct      ${GREEN}[8GB RAM]${NC}  - Community favorite for beginners"
-    echo -e "${CYAN}13)${NC} phi3:mini                ${GREEN}[4GB RAM]${NC}  - Microsoft's edge-optimized"
-    echo -e "${CYAN}14)${NC} llama3.2:3b             ${GREEN}[4GB RAM]${NC}  - Compact Llama for lightweight"
-    echo -e "${CYAN}15)${NC} gemma2:9b                ${GREEN}[8GB RAM]${NC}  - Google's efficient model"
-    echo -e "${CYAN}16)${NC} qwen2.5:7b              ${GREEN}[8GB RAM]${NC}  - Alibaba's balanced model"
-    echo -e "${CYAN}17)${NC} phi3.5:3.8b             ${GREEN}[4GB RAM]${NC}  - Latest Microsoft lightweight"
-    echo -e "${CYAN}18)${NC} tinyllama:1.1b           ${GREEN}[2GB RAM]${NC}  - Ultra-lightweight"
+    echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS (2025 Latest)${NC}"
+    echo -e "${CYAN}12)${NC} phi4:14b                 ${GREEN}[14GB RAM]${NC} - Microsoft's 2025 state-of-the-art"
+    echo -e "${CYAN}13)${NC} phi4-mini                ${GREEN}[4GB RAM]${NC}  - 2025 multilingual & reasoning"
+    echo -e "${CYAN}14)${NC} gemma3:12b               ${GREEN}[12GB RAM]${NC} - Google's 2025 efficient model"
+    echo -e "${CYAN}15)${NC} gemma3:4b                ${GREEN}[4GB RAM]${NC}  - Compact Google 2025 model"
+    echo -e "${CYAN}16)${NC} mistral:7b-instruct      ${GREEN}[8GB RAM]${NC}  - Community favorite for beginners"
+    echo -e "${CYAN}17)${NC} llama3.2:3b             ${GREEN}[4GB RAM]${NC}  - Compact Llama for lightweight"
+    echo -e "${CYAN}18)${NC} gemma3:1b                ${GREEN}[2GB RAM]${NC}  - Ultra-lightweight 2025 model"
     echo
 
     echo -e "${YELLOW}🎨 CREATIVE & MULTIMODAL${NC}"
@@ -200,7 +200,7 @@ show_model_selection_menu() {
     echo -e "${CYAN}21)${NC} gemma2:27b               ${GREEN}[32GB RAM]${NC} - Excellent creative writing"
     echo -e "${CYAN}22)${NC} llava:34b                ${GREEN}[32GB RAM]${NC} - Large vision language model"
     echo -e "${CYAN}23)${NC} bakllava:latest          ${GREEN}[16GB RAM]${NC} - Alternative vision model"
-    echo -e "${CYAN}24)${NC} moondream:latest         ${GREEN}[8GB RAM]${NC}  - Lightweight vision model"
+    echo -e "${CYAN}24)${NC} moondream:latest         ${GREEN}[2GB RAM]${NC}  - Smallest vision model (1.8B)"
     echo
 
     echo -e "${YELLOW}🧠 SPECIALIZED MODELS${NC}"
@@ -251,12 +251,12 @@ show_model_selection_menu() {
     echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
     echo
 
-    # Array of model names and descriptions corresponding to menu numbers
+    # Array of model names and descriptions corresponding to menu numbers (2025 LATEST)
     MODELS=(
-        "llama3.3:70b-instruct" "llama3.1:8b-instruct" "llama3.1:70b-instruct" "deepseek-r1" "deepseek-r1:32b"
-        "deepseek-coder:33b" "codellama:34b" "qwen2.5-coder:32b" "codellama:13b-instruct" "deepseek-coder:6.7b"
-        "codegemma:7b" "mistral:7b-instruct" "phi3:mini" "llama3.2:3b" "gemma2:9b"
-        "qwen2.5:7b" "phi3.5:3.8b" "tinyllama:1.1b" "llava:latest" "qwen-vl"
+        "gpt-oss:20b" "gpt-oss:120b" "deepseek-r1" "gemma3:27b" "llama3.3:70b-instruct"
+        "qwen3-coder:30b" "deepseek-coder:33b" "codellama:34b" "qwen2.5-coder:32b" "codellama:13b-instruct"
+        "codegemma:7b" "phi4:14b" "phi4-mini" "gemma3:12b" "gemma3:4b"
+        "mistral:7b-instruct" "llama3.2:3b" "gemma3:1b" "llava:latest" "qwen-vl"
         "gemma2:27b" "llava:34b" "bakllava:latest" "moondream:latest" "llama3.1:405b"
         "mixtral:8x7b" "mixtral:8x22b" "command-r:35b" "wizard-vicuna:13b" "orca-mini:13b"
         "llama3-gradient:8b" "vicuna:13b" "openchat:latest" "starling-lm:7b" "zephyr:7b"
@@ -265,13 +265,13 @@ show_model_selection_menu() {
         "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
     )
 
-    # Model descriptions array (corresponding to MODELS array)
+    # Model descriptions array (corresponding to MODELS array) - 2025 LATEST
     MODEL_DESCRIPTIONS=(
-        "Meta's 2025 flagship, rivals GPT-4 performance" "Community favorite, best balance" "High-performance enterprise" "Advanced reasoning powerhouse" "Large reasoning model"
-        "#1 coding model, complex tasks" "Meta's specialized coding model" "Latest code generation improvements" "Balanced coding performance" "Lightweight coding assistant"
-        "Google's coding model" "Community favorite for beginners" "Microsoft's edge-optimized" "Compact Llama lightweight" "Google's efficient model"
-        "Alibaba's balanced model" "Latest Microsoft lightweight" "Ultra-lightweight 1.1B" "Leading vision model for images" "Advanced multimodal processing"
-        "Excellent creative writing" "Large vision language model" "Alternative vision model" "Lightweight vision model" "Massive flagship model"
+        "OpenAI's new open-weight model" "OpenAI's flagship open model" "671B reasoning with thinking mode" "Google's most capable single-GPU model" "Meta's 2025 flagship, rivals GPT-4"
+        "Alibaba's latest 2025 coding model" "#1 coding model, complex tasks" "Meta's specialized coding model" "Previous Alibaba code model" "Balanced coding performance"
+        "Google's coding model" "Microsoft's 2025 state-of-the-art" "2025 multilingual & reasoning" "Google's 2025 efficient model" "Compact Google 2025 model"
+        "Community favorite for beginners" "Compact Llama lightweight" "Ultra-lightweight 2025 model" "Leading vision model for images" "Advanced multimodal processing"
+        "Excellent creative writing" "Large vision language model" "Alternative vision model" "Smallest vision model (1.8B)" "Massive flagship model"
         "Mixture of Experts 8x7B" "Large MoE 8x22B" "Cohere's command model" "Enhanced conversation model" "Microsoft's Orca variant"
         "Enhanced reasoning" "Research assistant model" "Open conversation model" "Berkeley research model" "Hugging Face model"
         "Strong multilingual support" "Chinese-English bilingual" "Multilingual instruction model" "Chinese language model" "Chinese conversation model"
