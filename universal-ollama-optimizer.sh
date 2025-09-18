@@ -364,9 +364,9 @@ validate_user_input() {
 
     case "$input_type" in
         "choice")
-            if [[ ! "$input" =~ ^[0-9]+$ ]] || [[ $input -lt 0 ]] || [[ $input -gt 53 ]]; then
+            if [[ ! "$input" =~ ^[0-9]+$ ]] || [[ $input -lt 0 ]] || [[ $input -gt 55 ]]; then
                 echo -e "${RED}✗ Invalid choice: $input${NC}"
-                echo -e "${YELLOW}Please enter a number between 0-53${NC}"
+                echo -e "${YELLOW}Please enter a number between 0-55${NC}"
                 return 1
             fi
             ;;
@@ -566,13 +566,13 @@ show_model_selection_menu() {
     echo
 
     echo -e "${YELLOW}💻 PREMIER CODING MODELS (2025 Latest)${NC}"
-    echo -e "${CYAN} 6)${NC} qwen3-coder:30b          ${GREEN}[30GB RAM]${NC} - Alibaba's latest 2025 coding model"
-    echo -e "${CYAN} 7)${NC} deepseek-coder:33b       ${GREEN}[32GB RAM]${NC} - #1 coding model, complex tasks"
-    echo -e "${CYAN} 8)${NC} magicoder:latest         ${GREEN}[7GB RAM]${NC}  - OSS-Instruct trained coding specialist"
-    echo -e "${CYAN} 9)${NC} codellama:34b            ${GREEN}[32GB RAM]${NC} - Meta's specialized coding model"
-    echo -e "${CYAN}10)${NC} qwen2.5-coder:32b        ${GREEN}[32GB RAM]${NC} - Previous Alibaba code model"
-    echo -e "${CYAN}11)${NC} codellama:13b-instruct   ${GREEN}[16GB RAM]${NC} - Balanced coding performance"
-    echo -e "${CYAN}12)${NC} codegemma:7b             ${GREEN}[8GB RAM]${NC}  - Google's coding model"
+    echo -e "${CYAN} 7)${NC} qwen3-coder:30b          ${GREEN}[30GB RAM]${NC} - Alibaba's latest 2025 coding model"
+    echo -e "${CYAN} 8)${NC} deepseek-coder:33b       ${GREEN}[32GB RAM]${NC} - #1 coding model, complex tasks"
+    echo -e "${CYAN} 9)${NC} magicoder:latest         ${GREEN}[7GB RAM]${NC}  - OSS-Instruct trained coding specialist"
+    echo -e "${CYAN}10)${NC} codellama:34b            ${GREEN}[32GB RAM]${NC} - Meta's specialized coding model"
+    echo -e "${CYAN}11)${NC} qwen2.5-coder:32b        ${GREEN}[32GB RAM]${NC} - Previous Alibaba code model"
+    echo -e "${CYAN}12)${NC} codellama:13b-instruct   ${GREEN}[16GB RAM]${NC} - Balanced coding performance"
+    echo -e "${CYAN}13)${NC} codegemma:7b             ${GREEN}[8GB RAM]${NC}  - Google's coding model"
     echo
 
     echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS (2025 Latest)${NC}"
@@ -616,27 +616,27 @@ show_model_selection_menu() {
     echo
 
     echo -e "${YELLOW}🌐 MULTILINGUAL MODELS${NC}"
-    echo -e "${CYAN}36)${NC} qwen2.5:14b             ${GREEN}[16GB RAM]${NC} - Strong multilingual support"
-    echo -e "${CYAN}37)${NC} yi:34b                   ${GREEN}[32GB RAM]${NC} - Chinese-English bilingual"
-    echo -e "${CYAN}38)${NC} aya:35b                  ${GREEN}[32GB RAM]${NC} - Multilingual instruction model"
-    echo -e "${CYAN}39)${NC} chinese-llama2:7b        ${GREEN}[8GB RAM]${NC}  - Chinese language model"
-    echo -e "${CYAN}40)${NC} baichuan2:7b             ${GREEN}[8GB RAM]${NC}  - Chinese conversation model"
+    echo -e "${CYAN}41)${NC} qwen2.5:14b             ${GREEN}[16GB RAM]${NC} - Strong multilingual support"
+    echo -e "${CYAN}42)${NC} yi:34b                   ${GREEN}[32GB RAM]${NC} - Chinese-English bilingual"
+    echo -e "${CYAN}43)${NC} aya:35b                  ${GREEN}[32GB RAM]${NC} - Multilingual instruction model"
+    echo -e "${CYAN}44)${NC} chinese-llama2:7b        ${GREEN}[8GB RAM]${NC}  - Chinese language model"
+    echo -e "${CYAN}45)${NC} baichuan2:7b             ${GREEN}[8GB RAM]${NC}  - Chinese conversation model"
     echo
 
     echo -e "${YELLOW}⚡ SPEED & EFFICIENCY${NC}"
-    echo -e "${CYAN}41)${NC} neural-chat:7b           ${GREEN}[8GB RAM]${NC}  - Fast conversation model"
-    echo -e "${CYAN}42)${NC} dolphin-mistral:7b       ${GREEN}[8GB RAM]${NC}  - Uncensored variant"
-    echo -e "${CYAN}43)${NC} solar:10.7b              ${GREEN}[12GB RAM]${NC} - Solar Pro model"
-    echo -e "${CYAN}44)${NC} nous-hermes2:latest      ${GREEN}[8GB RAM]${NC}  - Nous Research model"
-    echo -e "${CYAN}45)${NC} alpaca:7b                ${GREEN}[8GB RAM]${NC}  - Stanford's Alpaca"
+    echo -e "${CYAN}46)${NC} neural-chat:7b           ${GREEN}[8GB RAM]${NC}  - Fast conversation model"
+    echo -e "${CYAN}47)${NC} dolphin-mistral:7b       ${GREEN}[8GB RAM]${NC}  - Uncensored variant"
+    echo -e "${CYAN}48)${NC} solar:10.7b              ${GREEN}[12GB RAM]${NC} - Solar Pro model"
+    echo -e "${CYAN}49)${NC} nous-hermes2:latest      ${GREEN}[8GB RAM]${NC}  - Nous Research model"
+    echo -e "${CYAN}50)${NC} alpaca:7b                ${GREEN}[8GB RAM]${NC}  - Stanford's Alpaca"
     echo
 
     echo -e "${YELLOW}🎯 FINE-TUNED VARIANTS${NC}"
-    echo -e "${CYAN}46)${NC} llama3-chatqa:8b         ${GREEN}[8GB RAM]${NC}  - Q&A specialized"
-    echo -e "${CYAN}47)${NC} llama3-instruct:8b       ${GREEN}[8GB RAM]${NC}  - Instruction following"
-    echo -e "${CYAN}48)${NC} mistral-openorca:7b      ${GREEN}[8GB RAM]${NC}  - OpenOrca fine-tune"
-    echo -e "${CYAN}49)${NC} wizard-math:7b           ${GREEN}[8GB RAM]${NC}  - Mathematics specialist"
-    echo -e "${CYAN}50)${NC} medllama2:7b             ${GREEN}[8GB RAM]${NC}  - Medical domain model"
+    echo -e "${CYAN}51)${NC} llama3-chatqa:8b         ${GREEN}[8GB RAM]${NC}  - Q&A specialized"
+    echo -e "${CYAN}52)${NC} llama3-instruct:8b       ${GREEN}[8GB RAM]${NC}  - Instruction following"
+    echo -e "${CYAN}53)${NC} mistral-openorca:7b      ${GREEN}[8GB RAM]${NC}  - OpenOrca fine-tune"
+    echo -e "${CYAN}54)${NC} wizard-math:7b           ${GREEN}[8GB RAM]${NC}  - Mathematics specialist"
+    echo -e "${CYAN}55)${NC} medllama2:7b             ${GREEN}[8GB RAM]${NC}  - Medical domain model"
     echo
 
     echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
@@ -657,7 +657,7 @@ show_model_selection_menu() {
         "orca-mini:13b" "llama3-gradient:8b" "vicuna:13b" "openchat:latest" "starling-lm:7b"
         "zephyr:7b" "qwen2.5:14b" "yi:34b" "aya:35b" "chinese-llama2:7b"
         "baichuan2:7b" "neural-chat:7b" "dolphin-mistral:7b" "solar:10.7b" "nous-hermes2:latest"
-        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
+        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b" "llama3-chatqa:8b" "llama3-instruct:8b"
     )
 
     # Model descriptions array (corresponding to MODELS array) - 2025 LATEST
@@ -671,7 +671,7 @@ show_model_selection_menu() {
         "Microsoft's Orca variant" "Enhanced reasoning" "Research assistant model" "Open conversation model" "Berkeley research model"
         "Hugging Face model" "Strong multilingual support" "Chinese-English bilingual" "Multilingual instruction model" "Chinese language model"
         "Chinese conversation model" "Fast conversation model" "Uncensored variant" "Solar Pro model" "Nous Research model"
-        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model"
+        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model" "Q&A specialized" "Instruction following"
     )
 }
 
@@ -744,7 +744,7 @@ get_model_selection() {
                 read -p "Press Enter to continue..."
                 continue
                 ;;
-            [1-9]|[1-4][0-9]|50)
+            [1-9]|[1-4][0-9]|5[0-3])
                 if [[ $choice -ge 1 && $choice -le 50 ]]; then
                     MODEL_NAME="${MODELS[$((choice-1))]}"
                     echo -e "${GREEN}Selected: ${CYAN}$MODEL_NAME${NC}"
