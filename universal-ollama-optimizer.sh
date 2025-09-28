@@ -576,8 +576,8 @@ show_model_selection_menu() {
     echo
 
     echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS (2025 Latest)${NC}"
-    echo -e "${CYAN}13)${NC} phi4:14b                 ${GREEN}[14GB RAM]${NC} - Microsoft's 2025 state-of-the-art"
-    echo -e "${CYAN}14)${NC} phi4-mini                ${GREEN}[4GB RAM]${NC}  - 2025 multilingual & reasoning"
+    echo -e "${CYAN}14)${NC} phi4:14b                 ${GREEN}[14GB RAM]${NC} - Microsoft's 2025 state-of-the-art"
+    echo -e "${CYAN}15)${NC} phi4-mini                ${GREEN}[4GB RAM]${NC}  - 2025 multilingual & reasoning"
     echo -e "${CYAN}15)${NC} granite3.3:8b            ${GREEN}[8GB RAM]${NC}  - IBM's improved 128K context model"
     echo -e "${CYAN}16)${NC} gemma3:12b               ${GREEN}[12GB RAM]${NC} - Google's 2025 efficient model"
     echo -e "${CYAN}17)${NC} gemma3:4b                ${GREEN}[4GB RAM]${NC}  - Compact Google 2025 model"
@@ -589,38 +589,38 @@ show_model_selection_menu() {
     echo
 
     echo -e "${YELLOW}🎨 CREATIVE & MULTIMODAL${NC}"
-    echo -e "${CYAN}23)${NC} gemma3n:latest           ${GREEN}[8GB RAM]${NC}  - Multimodal for everyday devices"
-    echo -e "${CYAN}24)${NC} llava:latest             ${GREEN}[16GB RAM]${NC} - Leading vision model for images"
-    echo -e "${CYAN}25)${NC} qwen-vl                  ${GREEN}[16GB RAM]${NC} - Advanced multimodal processing"
-    echo -e "${CYAN}26)${NC} gemma2:27b               ${GREEN}[32GB RAM]${NC} - Excellent creative writing"
-    echo -e "${CYAN}27)${NC} llava:34b                ${GREEN}[32GB RAM]${NC} - Large vision language model"
-    echo -e "${CYAN}28)${NC} bakllava:latest          ${GREEN}[16GB RAM]${NC} - Alternative vision model"
-    echo -e "${CYAN}29)${NC} moondream:latest         ${GREEN}[2GB RAM]${NC}  - Smallest vision model (1.8B)"
+    echo -e "${CYAN}24)${NC} gemma3n:latest           ${GREEN}[8GB RAM]${NC}  - Multimodal for everyday devices"
+    echo -e "${CYAN}25)${NC} llava:latest             ${GREEN}[16GB RAM]${NC} - Leading vision model for images"
+    echo -e "${CYAN}26)${NC} qwen-vl                  ${GREEN}[16GB RAM]${NC} - Advanced multimodal processing"
+    echo -e "${CYAN}27)${NC} gemma2:27b               ${GREEN}[32GB RAM]${NC} - Excellent creative writing"
+    echo -e "${CYAN}28)${NC} llava:34b                ${GREEN}[32GB RAM]${NC} - Large vision language model"
+    echo -e "${CYAN}29)${NC} bakllava:latest          ${GREEN}[16GB RAM]${NC} - Alternative vision model"
+    echo -e "${CYAN}30)${NC} moondream:latest         ${GREEN}[2GB RAM]${NC}  - Smallest vision model (1.8B)"
     echo
 
     echo -e "${YELLOW}🧠 SPECIALIZED MODELS${NC}"
-    echo -e "${CYAN}30)${NC} llama3.1:405b           ${GREEN}[256GB RAM]${NC} - Massive flagship model"
-    echo -e "${CYAN}31)${NC} mixtral:8x7b             ${GREEN}[32GB RAM]${NC} - Mixture of Experts model"
-    echo -e "${CYAN}32)${NC} mixtral:8x22b            ${GREEN}[64GB RAM]${NC} - Large MoE model"
-    echo -e "${CYAN}33)${NC} command-r:35b            ${GREEN}[32GB RAM]${NC} - Cohere's command model"
-    echo -e "${CYAN}34)${NC} wizard-vicuna:13b        ${GREEN}[16GB RAM]${NC} - Enhanced conversation model"
-    echo -e "${CYAN}35)${NC} orca-mini:13b            ${GREEN}[16GB RAM]${NC} - Microsoft's Orca variant"
+    echo -e "${CYAN}31)${NC} llama3.1:405b           ${GREEN}[256GB RAM]${NC} - Massive flagship model"
+    echo -e "${CYAN}32)${NC} mixtral:8x7b             ${GREEN}[32GB RAM]${NC} - Mixture of Experts model"
+    echo -e "${CYAN}33)${NC} mixtral:8x22b            ${GREEN}[64GB RAM]${NC} - Large MoE model"
+    echo -e "${CYAN}34)${NC} command-r:35b            ${GREEN}[32GB RAM]${NC} - Cohere's command model"
+    echo -e "${CYAN}35)${NC} wizard-vicuna:13b        ${GREEN}[16GB RAM]${NC} - Enhanced conversation model"
+    echo -e "${CYAN}36)${NC} orca-mini:13b            ${GREEN}[16GB RAM]${NC} - Microsoft's Orca variant"
     echo
 
     echo -e "${YELLOW}🔬 RESEARCH & ANALYSIS${NC}"
-    echo -e "${CYAN}36)${NC} llama3-gradient:8b       ${GREEN}[8GB RAM]${NC}  - Enhanced reasoning"
-    echo -e "${CYAN}37)${NC} vicuna:13b               ${GREEN}[16GB RAM]${NC} - Research assistant model"
-    echo -e "${CYAN}38)${NC} openchat:latest          ${GREEN}[8GB RAM]${NC}  - Open conversation model"
-    echo -e "${CYAN}39)${NC} starling-lm:7b           ${GREEN}[8GB RAM]${NC}  - Berkeley research model"
-    echo -e "${CYAN}40)${NC} zephyr:7b                ${GREEN}[8GB RAM]${NC}  - Hugging Face model"
+    echo -e "${CYAN}37)${NC} llama3-gradient:8b       ${GREEN}[8GB RAM]${NC}  - Enhanced reasoning"
+    echo -e "${CYAN}38)${NC} vicuna:13b               ${GREEN}[16GB RAM]${NC} - Research assistant model"
+    echo -e "${CYAN}39)${NC} openchat:latest          ${GREEN}[8GB RAM]${NC}  - Open conversation model"
+    echo -e "${CYAN}40)${NC} starling-lm:7b           ${GREEN}[8GB RAM]${NC}  - Berkeley research model"
+    echo -e "${CYAN}41)${NC} zephyr:7b                ${GREEN}[8GB RAM]${NC}  - Hugging Face model"
     echo
 
     echo -e "${YELLOW}🌐 MULTILINGUAL MODELS${NC}"
-    echo -e "${CYAN}41)${NC} qwen2.5:14b             ${GREEN}[16GB RAM]${NC} - Strong multilingual support"
-    echo -e "${CYAN}42)${NC} yi:34b                   ${GREEN}[32GB RAM]${NC} - Chinese-English bilingual"
-    echo -e "${CYAN}43)${NC} aya:35b                  ${GREEN}[32GB RAM]${NC} - Multilingual instruction model"
-    echo -e "${CYAN}44)${NC} chinese-llama2:7b        ${GREEN}[8GB RAM]${NC}  - Chinese language model"
-    echo -e "${CYAN}45)${NC} baichuan2:7b             ${GREEN}[8GB RAM]${NC}  - Chinese conversation model"
+    echo -e "${CYAN}42)${NC} qwen2.5:14b             ${GREEN}[16GB RAM]${NC} - Strong multilingual support"
+    echo -e "${CYAN}43)${NC} yi:34b                   ${GREEN}[32GB RAM]${NC} - Chinese-English bilingual"
+    echo -e "${CYAN}44)${NC} aya:35b                  ${GREEN}[32GB RAM]${NC} - Multilingual instruction model"
+    echo -e "${CYAN}45)${NC} chinese-llama2:7b        ${GREEN}[8GB RAM]${NC}  - Chinese language model"
+    echo -e "${CYAN}46)${NC} baichuan2:7b             ${GREEN}[8GB RAM]${NC}  - Chinese conversation model"
     echo
 
     echo -e "${YELLOW}⚡ SPEED & EFFICIENCY${NC}"
@@ -657,7 +657,7 @@ show_model_selection_menu() {
         "orca-mini:13b" "llama3-gradient:8b" "vicuna:13b" "openchat:latest" "starling-lm:7b"
         "zephyr:7b" "qwen2.5:14b" "yi:34b" "aya:35b" "chinese-llama2:7b"
         "baichuan2:7b" "neural-chat:7b" "dolphin-mistral:7b" "solar:10.7b" "nous-hermes2:latest"
-        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b" "llama3-chatqa:8b" "llama3-instruct:8b"
+        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
     )
 
     # Model descriptions array (corresponding to MODELS array) - 2025 LATEST
@@ -671,7 +671,7 @@ show_model_selection_menu() {
         "Microsoft's Orca variant" "Enhanced reasoning" "Research assistant model" "Open conversation model" "Berkeley research model"
         "Hugging Face model" "Strong multilingual support" "Chinese-English bilingual" "Multilingual instruction model" "Chinese language model"
         "Chinese conversation model" "Fast conversation model" "Uncensored variant" "Solar Pro model" "Nous Research model"
-        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model" "Q&A specialized" "Instruction following"
+        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model"
     )
 }
 
