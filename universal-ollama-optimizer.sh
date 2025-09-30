@@ -578,14 +578,14 @@ show_model_selection_menu() {
     echo -e "${YELLOW}⚡ RESOURCE-EFFICIENT CHAMPIONS (2025 Latest)${NC}"
     echo -e "${CYAN}14)${NC} phi4:14b                 ${GREEN}[14GB RAM]${NC} - Microsoft's 2025 state-of-the-art"
     echo -e "${CYAN}15)${NC} phi4-mini                ${GREEN}[4GB RAM]${NC}  - 2025 multilingual & reasoning"
-    echo -e "${CYAN}15)${NC} granite3.3:8b            ${GREEN}[8GB RAM]${NC}  - IBM's improved 128K context model"
-    echo -e "${CYAN}16)${NC} gemma3:12b               ${GREEN}[12GB RAM]${NC} - Google's 2025 efficient model"
-    echo -e "${CYAN}17)${NC} gemma3:4b                ${GREEN}[4GB RAM]${NC}  - Compact Google 2025 model"
-    echo -e "${CYAN}18)${NC} gemma3:270m              ${GREEN}[300MB RAM]${NC} - Ultra-compact 270M edge model"
-    echo -e "${CYAN}19)${NC} mistral:7b-instruct      ${GREEN}[8GB RAM]${NC}  - Community favorite for beginners"
-    echo -e "${CYAN}20)${NC} llama3.2:3b             ${GREEN}[4GB RAM]${NC}  - Compact Llama for lightweight"
-    echo -e "${CYAN}21)${NC} gemma3:1b                ${GREEN}[2GB RAM]${NC}  - Ultra-lightweight 2025 model"
-    echo -e "${CYAN}22)${NC} granite3.3:2b            ${GREEN}[2GB RAM]${NC}  - IBM's efficient 2B enterprise model"
+    echo -e "${CYAN}16)${NC} granite3.3:8b            ${GREEN}[8GB RAM]${NC}  - IBM's improved 128K context model"
+    echo -e "${CYAN}17)${NC} gemma3:12b               ${GREEN}[12GB RAM]${NC} - Google's 2025 efficient model"
+    echo -e "${CYAN}18)${NC} gemma3:4b                ${GREEN}[4GB RAM]${NC}  - Compact Google 2025 model"
+    echo -e "${CYAN}19)${NC} gemma3:270m              ${GREEN}[300MB RAM]${NC} - Ultra-compact 270M edge model"
+    echo -e "${CYAN}20)${NC} mistral:7b-instruct      ${GREEN}[8GB RAM]${NC}  - Community favorite for beginners"
+    echo -e "${CYAN}21)${NC} llama3.2:3b             ${GREEN}[4GB RAM]${NC}  - Compact Llama for lightweight"
+    echo -e "${CYAN}22)${NC} gemma3:1b                ${GREEN}[2GB RAM]${NC}  - Ultra-lightweight 2025 model"
+    echo -e "${CYAN}23)${NC} granite3.3:2b            ${GREEN}[2GB RAM]${NC}  - IBM's efficient 2B enterprise model"
     echo
 
     echo -e "${YELLOW}🎨 CREATIVE & MULTIMODAL${NC}"
@@ -624,19 +624,18 @@ show_model_selection_menu() {
     echo
 
     echo -e "${YELLOW}⚡ SPEED & EFFICIENCY${NC}"
-    echo -e "${CYAN}46)${NC} neural-chat:7b           ${GREEN}[8GB RAM]${NC}  - Fast conversation model"
-    echo -e "${CYAN}47)${NC} dolphin-mistral:7b       ${GREEN}[8GB RAM]${NC}  - Uncensored variant"
-    echo -e "${CYAN}48)${NC} solar:10.7b              ${GREEN}[12GB RAM]${NC} - Solar Pro model"
-    echo -e "${CYAN}49)${NC} nous-hermes2:latest      ${GREEN}[8GB RAM]${NC}  - Nous Research model"
-    echo -e "${CYAN}50)${NC} alpaca:7b                ${GREEN}[8GB RAM]${NC}  - Stanford's Alpaca"
+    echo -e "${CYAN}47)${NC} neural-chat:7b           ${GREEN}[8GB RAM]${NC}  - Fast conversation model"
+    echo -e "${CYAN}48)${NC} dolphin-mistral:7b       ${GREEN}[8GB RAM]${NC}  - Uncensored variant"
+    echo -e "${CYAN}49)${NC} solar:10.7b              ${GREEN}[12GB RAM]${NC} - Solar Pro model"
+    echo -e "${CYAN}50)${NC} nous-hermes2:latest      ${GREEN}[8GB RAM]${NC}  - Nous Research model"
+    echo -e "${CYAN}51)${NC} alpaca:7b                ${GREEN}[8GB RAM]${NC}  - Stanford's Alpaca"
     echo
 
     echo -e "${YELLOW}🎯 FINE-TUNED VARIANTS${NC}"
-    echo -e "${CYAN}51)${NC} llama3-chatqa:8b         ${GREEN}[8GB RAM]${NC}  - Q&A specialized"
-    echo -e "${CYAN}52)${NC} llama3-instruct:8b       ${GREEN}[8GB RAM]${NC}  - Instruction following"
-    echo -e "${CYAN}53)${NC} mistral-openorca:7b      ${GREEN}[8GB RAM]${NC}  - OpenOrca fine-tune"
-    echo -e "${CYAN}54)${NC} wizard-math:7b           ${GREEN}[8GB RAM]${NC}  - Mathematics specialist"
-    echo -e "${CYAN}55)${NC} medllama2:7b             ${GREEN}[8GB RAM]${NC}  - Medical domain model"
+    echo -e "${CYAN}52)${NC} llama3-chatqa:8b         ${GREEN}[8GB RAM]${NC}  - Q&A specialized"
+    echo -e "${CYAN}53)${NC} llama3-instruct:8b       ${GREEN}[8GB RAM]${NC}  - Instruction following"
+    echo -e "${CYAN}54)${NC} mistral-openorca:7b      ${GREEN}[8GB RAM]${NC}  - OpenOrca fine-tune"
+    echo -e "${CYAN}55)${NC} wizard-math:7b           ${GREEN}[8GB RAM]${NC}  - Mathematics specialist"
     echo
 
     echo -e "${BLUE}══════════════════════════════════════════════════════════════════${NC}"
@@ -657,7 +656,7 @@ show_model_selection_menu() {
         "orca-mini:13b" "llama3-gradient:8b" "vicuna:13b" "openchat:latest" "starling-lm:7b"
         "zephyr:7b" "qwen2.5:14b" "yi:34b" "aya:35b" "chinese-llama2:7b"
         "baichuan2:7b" "neural-chat:7b" "dolphin-mistral:7b" "solar:10.7b" "nous-hermes2:latest"
-        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b" "medllama2:7b"
+        "alpaca:7b" "llama3-chatqa:8b" "llama3-instruct:8b" "mistral-openorca:7b" "wizard-math:7b"
     )
 
     # Model descriptions array (corresponding to MODELS array) - 2025 LATEST
@@ -671,7 +670,7 @@ show_model_selection_menu() {
         "Microsoft's Orca variant" "Enhanced reasoning" "Research assistant model" "Open conversation model" "Berkeley research model"
         "Hugging Face model" "Strong multilingual support" "Chinese-English bilingual" "Multilingual instruction model" "Chinese language model"
         "Chinese conversation model" "Fast conversation model" "Uncensored variant" "Solar Pro model" "Nous Research model"
-        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist" "Medical domain model"
+        "Stanford's Alpaca" "Q&A specialized" "Instruction following" "OpenOrca fine-tune" "Mathematics specialist"
     )
 }
 
@@ -681,13 +680,13 @@ get_model_selection() {
         show_model_selection_menu
 
         echo -e "${GREEN}Choose an option:${NC}"
-        echo -e "${CYAN}51)${NC} Enter custom model name"
-        echo -e "${CYAN}52)${NC} Show my local models only"
-        echo -e "${CYAN}53)${NC} Update all installed models"
+        echo -e "${CYAN}52)${NC} Enter custom model name"
+        echo -e "${CYAN}53)${NC} Show my local models only"
+        echo -e "${CYAN}54)${NC} Update all installed models"
         echo -e "${CYAN} 0)${NC} Exit"
         echo
 
-        read -p "Enter your choice (0-53): " choice
+        read -p "Enter your choice (0-55): " choice
 
         # Validate user input
         if ! validate_user_input "$choice" "choice"; then
@@ -744,8 +743,8 @@ get_model_selection() {
                 read -p "Press Enter to continue..."
                 continue
                 ;;
-            [1-9]|[1-4][0-9]|5[0-3])
-                if [[ $choice -ge 1 && $choice -le 50 ]]; then
+            [1-9]|[1-4][0-9]|5[0-5])
+                if [[ $choice -ge 1 && $choice -le 55 ]]; then
                     MODEL_NAME="${MODELS[$((choice-1))]}"
                     echo -e "${GREEN}Selected: ${CYAN}$MODEL_NAME${NC}"
 
@@ -763,7 +762,7 @@ get_model_selection() {
                 fi
                 ;;
             *)
-                echo -e "${RED}Invalid choice. Please select 0-53.${NC}"
+                echo -e "${RED}Invalid choice. Please select 0-55.${NC}"
                 continue
                 ;;
         esac
