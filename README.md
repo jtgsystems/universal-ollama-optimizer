@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # 🚀 Universal Ollama Optimizer
 
 **Developed by [JTGSYSTEMS.COM](https://jtgsystems.com) | [JointTechnologyGroup.com](https://jointtechnologygroup.com)**
