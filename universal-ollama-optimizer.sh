@@ -1,12 +1,15 @@
 #!/bin/bash
-# Universal Ollama Optimizer - Terminal Interface
-# 🚀 Professional toolkit for launching and optimizing Ollama AI models
+# Universal Ollama Launcher & Manager - Terminal Interface
+# 🚀 Professional toolkit for launching and managing Ollama AI models
 #
 # Developed by JTGSYSTEMS.COM | JointTechnologyGroup.com
-# Repository: https://github.com/your-username/universal-ollama-optimizer
+# Repository: https://github.com/jtgsystems/universal-ollama-optimizer
 #
-# Features: Universal model support, optimization profiles, system monitoring,
-# intelligent caching, and automated configuration management
+# Features: Universal model support, parameter profile suggestions, system monitoring,
+# intelligent model downloading, and automated configuration management
+#
+# NOTE: This tool provides parameter suggestions. To actually apply parameters,
+# use /set commands during your interactive session or create custom Modelfiles.
 
 # Color codes
 GREEN='\033[0;32m'
@@ -476,7 +479,7 @@ declare -A PROFILES=(
 show_header() {
     clear
     echo -e "${BLUE}╔════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║         Universal Ollama Optimizer        ║${NC}"
+    echo -e "${BLUE}║       Ollama Launcher & Manager           ║${NC}"
     echo -e "${BLUE}║      JTGSYSTEMS.COM | JointTechnologyGroup ║${NC}"
     echo -e "${BLUE}╚════════════════════════════════════════════╝${NC}"
     echo
@@ -485,7 +488,7 @@ show_header() {
 # REPLACED: Old check_ollama_service() function replaced with comprehensive error handling system
 # Comprehensive system initialization with error handling
 initialize_system() {
-    echo -e "${CYAN}🔧 Initializing Universal Ollama Optimizer...${NC}"
+    echo -e "${CYAN}🔧 Initializing Ollama Launcher & Manager...${NC}"
     echo
 
     # Run comprehensive system validation
@@ -929,7 +932,8 @@ check_system_resources() {
 
 # Function to show profile selection
 show_profile_selection() {
-    echo -e "\n${GREEN}Optimization Profiles:${NC}"
+    echo -e "\n${GREEN}Parameter Profile Suggestions:${NC}"
+    echo -e "${YELLOW}(Note: Parameters must be applied manually using /set commands during session)${NC}"
     echo -e "  ${CYAN}1)${NC} Balanced          - General purpose (temp: 0.5)"
     echo -e "  ${CYAN}2)${NC} Technical/Factual - Precise answers (temp: 0.2)"
     echo -e "  ${CYAN}3)${NC} Creative Writing  - Imaginative content (temp: 1.0)"
@@ -1160,12 +1164,13 @@ main() {
 
     show_parameter_instructions "$PARAMS" "$SELECTED_PROFILE"
 
-    echo -e "${GREEN}Starting $MODEL_NAME with $SELECTED_PROFILE profile...${NC}"
+    echo -e "${GREEN}Starting $MODEL_NAME (with $SELECTED_PROFILE parameter suggestions above)...${NC}"
+    echo -e "${YELLOW}Apply parameters manually during session using /set commands${NC}"
     echo -e "${CYAN}Press Ctrl+C to exit${NC}"
     echo
 
     # Log session start
-    log_error "INFO" "Starting model session: $MODEL_NAME with $SELECTED_PROFILE profile"
+    log_error "INFO" "Starting model session: $MODEL_NAME with $SELECTED_PROFILE profile suggestion"
 
     # Launch the model with error handling
     if ! ollama run "$MODEL_NAME"; then
